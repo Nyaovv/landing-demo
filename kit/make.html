@@ -1,0 +1,170 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="robots" content="noindex, nofollow">
+<meta name="referrer" content="no-referrer">
+<title>Генератор демо-ссылок</title>
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='8' fill='%233b5bdb'/%3E%3C/svg%3E">
+<style>
+  :root{--bg:#f4f4f1;--card:#fff;--ink:#16181b;--muted:#5b6068;--line:#dcdcd5;--acc:#3b5bdb;--r:14px;color-scheme:light}
+  *,::before,::after{box-sizing:border-box;margin:0;padding:0}
+  html{-webkit-text-size-adjust:100%;overflow-x:hidden}
+  body{background:var(--bg);color:var(--ink);font:16px/1.5 system-ui,-apple-system,"Segoe UI",Roboto,sans-serif}
+  .page{display:grid;gap:20px;width:min(1320px,100% - 24px);margin:0 auto;padding:16px 0 40px}
+  @media (min-width:1000px){.page{grid-template-columns:420px minmax(0,1fr);align-items:start;padding-top:28px}.preview{position:sticky;top:20px}}
+  h1{font-size:22px;letter-spacing:-.02em}
+  .sub{margin-top:4px;color:var(--muted);font-size:14.5px}
+  .card{padding:18px;background:var(--card);border:1px solid var(--line);border-radius:var(--r)}
+  form{display:grid;gap:14px}
+  label,.lbl{display:block;margin-bottom:5px;font-size:14px;font-weight:600}
+  .hint{margin-top:5px;color:var(--muted);font-size:13px}
+  .hint b{color:var(--ink)}
+  input[type=text],input[type=tel],select,textarea{width:100%;min-height:48px;padding:11px 13px;border:1px solid var(--line);border-radius:10px;background:#fff;font:inherit;font-size:16px}
+  textarea{min-height:72px;resize:vertical}
+  input:focus,select:focus,textarea:focus{outline:2px solid var(--acc);outline-offset:1px}
+  .seg{display:grid;grid-template-columns:repeat(4,1fr);gap:6px}
+  .seg label{margin:0}
+  .seg input{position:absolute;opacity:0;pointer-events:none}
+  .seg span{display:grid;place-items:center;min-height:44px;padding:6px;border:1px solid var(--line);border-radius:10px;background:#fff;font-size:13px;font-weight:600;text-align:center;line-height:1.2;cursor:pointer}
+  .seg input:checked+span{border-color:var(--acc);background:#eef1fd;color:#2a43b8}
+  .seg input:focus-visible+span{outline:2px solid var(--acc)}
+  .color{display:flex;align-items:center;gap:12px;flex-wrap:wrap}
+  .color label{display:flex;align-items:center;gap:8px;margin:0;font-weight:500}
+  .color input[type=checkbox]{width:20px;height:20px;accent-color:var(--acc)}
+  input[type=color]{width:56px;height:40px;padding:2px;border:1px solid var(--line);border-radius:8px;background:#fff}
+  input[type=color]:disabled{opacity:.35}
+  .out{display:grid;gap:10px}
+  .url{width:100%;min-height:96px;padding:11px 13px;border:1px solid var(--line);border-radius:10px;background:#fafaf8;font:13px/1.45 ui-monospace,Menlo,Consolas,monospace;word-break:break-all;resize:none}
+  .btns{display:flex;flex-wrap:wrap;gap:8px}
+  .btns>*{flex:1 1 120px;display:inline-flex;align-items:center;justify-content:center;min-height:48px;padding:10px 16px;border:1px solid var(--ink);border-radius:10px;background:#fff;color:var(--ink);font:inherit;font-weight:700;text-decoration:none;cursor:pointer}
+  .btns .main{background:var(--ink);color:#fff}
+  .status{min-height:20px;color:#1b7f3b;font-size:14px;font-weight:600}
+  .preview{display:grid;gap:10px}
+  .pv-head{display:flex;justify-content:space-between;align-items:center;gap:10px}
+  .pv-head .seg{grid-template-columns:repeat(2,auto)}
+  .pv-head .seg span{padding:6px 14px;min-height:38px}
+  .frame{position:relative;overflow:hidden;border:1px solid var(--line);border-radius:var(--r);background:#fff;height:min(78vh,820px)}
+  .frame iframe{position:absolute;top:0;left:0;border:0;width:100%;height:100%;transform-origin:0 0}
+  .frame.phone{max-width:400px;margin-inline:auto;width:100%}
+</style>
+</head>
+<body>
+<div class="page">
+  <div>
+    <header style="margin-bottom:14px">
+      <h1>Демо под заказчика</h1>
+      <p class="sub">Заполните поля, скопируйте ссылку и вставьте её в отклик. Ничего не деплоится: всё зашито в ссылку.</p>
+    </header>
+    <div class="card">
+      <form id="mk" autocomplete="off">
+        <div><label for="b">Название бизнеса</label><input type="text" id="b" maxlength="60" placeholder="Например: Гараж 21"></div>
+        <div><label for="n">Ниша</label><select id="n"></select></div>
+        <div>
+          <label for="c">Город</label><input type="text" id="c" maxlength="40" list="cities" placeholder="Например: Казань">
+          <datalist id="cities"><option>Москва</option><option>Санкт-Петербург</option><option>Новосибирск</option><option>Екатеринбург</option><option>Казань</option><option>Нижний Новгород</option><option>Красноярск</option><option>Челябинск</option><option>Самара</option><option>Уфа</option><option>Ростов-на-Дону</option><option>Краснодар</option><option>Омск</option><option>Воронеж</option><option>Пермь</option><option>Волгоград</option><option>Тюмень</option><option>Сочи</option><option>Калининград</option><option>Владивосток</option></datalist>
+          <p class="hint" id="c-hint">В заголовке: <b id="c-prep">—</b>. Склонилось криво? Впишите целиком: «в Нижнем Новгороде».</p>
+        </div>
+        <div><label for="t">Свой заголовок <span style="font-weight:400;color:var(--muted)">необязательно</span></label><input type="text" id="t" maxlength="140" placeholder="Если пусто, возьмём заголовок ниши"></div>
+        <div><label for="o">Оффер / УТП <span style="font-weight:400;color:var(--muted)">необязательно</span></label><textarea id="o" maxlength="300" placeholder="Подзаголовок под главным заголовком"></textarea></div>
+        <div><label for="p">Телефон <span style="font-weight:400;color:var(--muted)">необязательно</span></label><input type="tel" id="p" maxlength="30" placeholder="Пусто: номер на странице не показываем"></div>
+        <div>
+          <span class="lbl" id="s-lbl">Стиль</span>
+          <div class="seg" role="radiogroup" aria-labelledby="s-lbl">
+            <label><input type="radio" name="s" value="" checked><span>Как у ниши</span></label>
+            <label><input type="radio" name="s" value="1"><span>Светлый</span></label>
+            <label><input type="radio" name="s" value="2"><span>Тёмный</span></label>
+            <label><input type="radio" name="s" value="3"><span>Яркий</span></label>
+          </div>
+        </div>
+        <div>
+          <span class="lbl">Акцентный цвет</span>
+          <div class="color">
+            <label><input type="checkbox" id="a-on"> свой цвет</label>
+            <input type="color" id="a" value="#e8590c" disabled aria-label="Акцентный цвет">
+          </div>
+        </div>
+      </form>
+    </div>
+    <div class="card out" style="margin-top:14px">
+      <label for="url" style="margin:0">Ссылка для отклика</label>
+      <textarea class="url" id="url" readonly rows="3"></textarea>
+      <div class="btns">
+        <button type="button" class="main" id="copy">Скопировать</button>
+        <a id="open" href="./" target="_blank" rel="noopener">Открыть</a>
+        <button type="button" id="share" hidden>Поделиться</button>
+      </div>
+      <p class="status" id="status" role="status" aria-live="polite"></p>
+    </div>
+  </div>
+
+  <section class="preview" aria-label="Превью">
+    <div class="pv-head">
+      <strong>Превью</strong>
+      <div class="seg" role="radiogroup" aria-label="Ширина превью">
+        <label><input type="radio" name="pv" value="phone" checked><span>Телефон</span></label>
+        <label><input type="radio" name="pv" value="desk"><span>Компьютер</span></label>
+      </div>
+    </div>
+    <div class="frame phone" id="frame"><iframe id="pv" title="Превью демо" loading="lazy"></iframe></div>
+  </section>
+</div>
+
+<script src="presets.js"></script>
+<script>
+(() => {
+  const K = window.KIT, $ = id => document.getElementById(id);
+  const sel = $('n');
+  for (const [k, v] of Object.entries(K.niches)) sel.add(new Option(v.label, k, k === 'b2b', k === 'b2b'));
+  const base = new URL('./', location.href).href; // на Pages: https://nyaovv.github.io/landing-demo/kit/
+  const frame = $('frame'), pv = $('pv');
+  let url = '', timer = 0;
+
+  const build = () => {
+    const q = new URLSearchParams();
+    const put = (k, v) => { v = v.trim(); if (v) q.set(k, v); };
+    put('b', $('b').value); put('n', sel.value); put('c', $('c').value); put('t', $('t').value); put('o', $('o').value);
+    put('s', document.querySelector('[name=s]:checked').value);
+    if ($('a-on').checked) put('a', $('a').value.slice(1));
+    put('p', $('p').value);
+    url = base + '?' + q.toString();
+    $('url').value = url;
+    $('open').href = url;
+    const c = K.cityName($('c').value.trim());
+    $('c-prep').textContent = c ? K.prep(c) : 'без города';
+    $('status').textContent = '';
+    clearTimeout(timer);
+    timer = setTimeout(() => { pv.src = url; }, 450);
+  };
+
+  const fitFrame = () => {
+    const desk = document.querySelector('[name=pv]:checked').value === 'desk';
+    frame.classList.toggle('phone', !desk);
+    const k = desk ? frame.clientWidth / 1280 : 1;
+    pv.style.width = desk ? '1280px' : '100%';
+    pv.style.height = desk ? (frame.clientHeight / k) + 'px' : '100%';
+    pv.style.transform = desk ? `scale(${k})` : '';
+  };
+
+  $('mk').addEventListener('input', build);
+  $('a-on').addEventListener('change', () => { $('a').disabled = !$('a-on').checked; build(); });
+  document.querySelectorAll('[name=pv]').forEach(r => r.addEventListener('change', fitFrame));
+  addEventListener('resize', fitFrame);
+
+  const done = t => { $('status').textContent = t; };
+  $('copy').addEventListener('click', async () => {
+    try { await navigator.clipboard.writeText(url); done('Скопировано'); }
+    catch { $('url').select(); done(document.execCommand('copy') ? 'Скопировано' : 'Выделил ссылку: скопируйте вручную'); }
+  });
+  if (navigator.share) {
+    $('share').hidden = false;
+    $('share').addEventListener('click', () => navigator.share({ url }).catch(() => {}));
+  }
+
+  build();
+  fitFrame();
+})();
+</script>
+</body>
+</html>
