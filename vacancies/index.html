@@ -7,8 +7,8 @@
 <meta name="description" content="Работа в компании «Магистраль»: водители, склад, производство в Санкт-Петербурге. Официальное оформление, зарплата без задержек.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Onest:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-<style>
+<link href="https://fonts.googleapis.com/css2?family=Onest:wght@400;500;600;700;800&family=Fira+Sans+Condensed:wght@600;800&family=Fira+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<style id="v1">
 :root{
   --bg:#f2efe9; --card:#fff; --ink:#15232b; --muted:#5b6872; --line:#e4ded3;
   --deep:#173f35; --acc:#22795f; --acc-h:#1b6450; --tint:#e3f0ea;
@@ -264,6 +264,230 @@ input,select{font:inherit;font-size:16px;border:1px solid var(--line);border-rad
 .sheet tr.new td{background:#edf7f1}
 
 @media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
+</style>
+
+<style id="v2" media="not all">
+:root{--asph:#2E3338;--asph2:#3B4147;--road:#454C53;--con:#E9EBE7;--line:#D3D7D1;--sign:#00704A;--sign2:#005C3D;--sig:#FFC928;--ink:#22272B;--mute:#5E666C;--wh:#fff;--cond:"Fira Sans Condensed",sans-serif}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth;scroll-padding-top:80px}
+body{background:var(--con);color:var(--ink);font:400 16px/1.55 "Fira Sans",sans-serif;padding-bottom:70px}
+a{color:inherit;text-decoration:none}
+button,input,select{font:inherit;color:inherit}
+button{cursor:pointer;background:none;border:0}
+:focus-visible{outline:3px solid var(--sig);outline-offset:2px}
+h1,h2,h3{font-family:var(--cond);line-height:1.05;font-weight:800}
+h2{font-size:clamp(28px,3.4vw,40px)}
+.wrap{max-width:1200px;margin:0 auto;padding:0 20px}
+
+/* шапка на асфальте, сливается с первым экраном */
+header{position:sticky;top:0;z-index:20;background:var(--asph);color:var(--wh);transition:box-shadow .3s}
+header.scrolled{box-shadow:0 2px 0 var(--sig)}
+.nav{display:flex;align-items:center;gap:24px;height:68px}
+.logo{display:flex;align-items:center;gap:10px;font:800 22px var(--cond)}
+.logo i{width:30px;height:30px;border-radius:6px;background:var(--sign);outline:2px solid var(--wh);outline-offset:-5px}
+.nav nav{display:flex;gap:22px;margin-right:auto}
+.nav nav a{color:#C9CED2;transition:color .2s}.nav nav a:hover{color:var(--wh)}
+.fav-link{color:#C9CED2}.fav-link:hover{color:var(--wh)}
+#favCount{display:inline-grid;place-items:center;min-width:20px;border-radius:10px;background:var(--sig);color:var(--ink);font-size:12px}
+#favCount:empty{display:none}
+.tel{font:600 17px var(--cond)}
+
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;height:52px;padding:0 26px;border-radius:8px;background:var(--sign);color:var(--wh);font:600 17px var(--cond);transition:background .2s,transform .2s}
+.btn:hover{background:var(--sign2)}.btn:active{transform:translateY(1px)}
+.btn-acc{background:var(--sig);color:var(--ink)}.btn-acc:hover{background:#F2B600}
+.btn-sm{height:42px;padding:0 18px;font-size:16px}
+
+/* первый экран: зелёный знак автомагистрали над асфальтом, внизу разметка */
+.hero{background:var(--asph);padding:28px 0 0;color:var(--wh);overflow:hidden}
+.hero .wrap::after{content:"";display:block;height:8px;margin:36px -20px 0;background:repeating-linear-gradient(90deg,var(--wh) 0 60px,transparent 60px 110px);animation:lane 1.6s cubic-bezier(.2,.7,.2,1) .4s both}
+@keyframes lane{from{background-position:-440px 0;opacity:0}to{opacity:.9}}
+.hero-panel{position:relative;display:grid;grid-template-columns:1.3fr 1fr;gap:40px;align-items:start;padding:52px 48px;border-radius:14px;background:var(--sign);outline:3px solid var(--wh);outline-offset:-12px;transform-origin:50% 0;animation:hang 1s cubic-bezier(.2,.8,.25,1.15) both}
+@keyframes hang{from{transform:perspective(1200px) rotateX(-70deg);opacity:0}to{transform:none;opacity:1}}
+.routes{position:absolute;inset:0;width:100%;height:100%;border-radius:14px;opacity:.14;pointer-events:none}
+.routes *{stroke:var(--wh);fill:none}
+.hero-panel>div{position:relative}
+.kicker{display:inline-block;font-size:15px;color:#CFE6DB;margin-bottom:14px}
+.hero h1{font-size:clamp(40px,5.4vw,70px);letter-spacing:-.01em;max-width:13ch}
+.hero h1 span{display:block}
+.lead{margin:18px 0 28px;max-width:46ch;color:#E3F1EA;font-size:18px}
+.searchbar{display:flex;align-items:center;background:var(--wh);border-radius:10px;padding:6px 6px 6px 16px;max-width:560px;color:var(--ink)}
+.searchbar svg{width:22px;height:22px;flex:none;fill:none;stroke:var(--mute);stroke-width:2;stroke-linecap:round}
+.searchbar input{flex:1;min-width:0;border:0;outline:0;background:none;padding:12px;font-size:16px}
+.searchbar button{height:46px;padding:0 24px;border-radius:7px;background:var(--asph);color:var(--wh);font:600 17px var(--cond)}
+.searchbar button:hover{background:var(--ink)}
+.hints{margin-top:14px;font-size:14px;color:#CFE6DB;display:flex;flex-wrap:wrap;gap:8px;align-items:center}
+.hints button{padding:4px 12px;border-radius:6px;border:1.5px solid #ffffff66;color:var(--wh);font-size:14px}
+.hints button:hover{border-color:var(--wh)}
+
+/* «Срочно ищем» — жёлтый временный знак */
+.urgent{position:relative;background:var(--sig);color:var(--ink);border-radius:10px;padding:22px;outline:3px solid var(--ink);outline-offset:-9px;animation:drop .7s cubic-bezier(.2,.8,.2,1) .55s both}
+@keyframes drop{from{transform:translateY(-24px);opacity:0}}
+.urgent-head{display:flex;justify-content:space-between;align-items:baseline;padding:4px 6px 10px}
+.urgent-head h2{font-size:26px}
+.urgent-head a{font-weight:600;text-decoration:underline;text-underline-offset:3px}
+.u-item{display:flex;align-items:center;gap:12px;padding:12px 6px;border-top:2px solid #22272B26}
+.u-item div{flex:1;min-width:0}
+.u-item b{display:block;font:600 17px/1.2 var(--cond)}
+.u-item small{color:#4A4426;font-size:13px}
+.u-item>span:last-child{font:800 17px var(--cond);white-space:nowrap}
+.u-item:hover b{text-decoration:underline}
+.urgent .ic{background:var(--ink);color:var(--sig)}
+
+/* иконки — квадратные таблички, как указатели */
+.ic{display:grid;place-items:center;border-radius:7px;color:var(--wh);background:var(--asph)}
+.ic svg{width:21px;height:21px;fill:none;stroke:currentColor;stroke-width:1.9;stroke-linecap:round;stroke-linejoin:round}
+.u-item .ic{width:40px;height:40px;flex:none}
+.c-ink{background:var(--asph)}.c-blue{background:#1F5AA6}.c-amber{background:var(--sig);color:var(--ink)}.c-green{background:var(--sign)}
+.c-orange{background:#D9641A}.c-sky{background:#2B7BB0}.c-violet{background:#5B4B8A}.c-rose{background:#B23A48}
+
+.tiles{display:grid;grid-template-columns:repeat(auto-fill,minmax(170px,1fr));gap:10px;margin-top:22px}
+.tile{position:relative;text-align:left;padding:16px 56px 16px 16px;border-radius:8px;background:var(--asph2);color:var(--wh);transition:background .2s}
+.tile:hover{background:var(--road)}
+.tile[aria-pressed=true]{background:var(--wh);color:var(--ink)}
+.tile b{display:block;font:600 18px/1.15 var(--cond)}
+.tile small{color:#AEB5BA;font-size:13px}
+.tile[aria-pressed=true] small{color:var(--mute)}
+.tile .ic{position:absolute;right:12px;top:14px;width:34px;height:34px}
+
+/* вакансии */
+section{padding:72px 0}
+.toolbar{display:flex;justify-content:space-between;align-items:end;gap:16px;flex-wrap:wrap;margin-bottom:24px}
+#found{font:600 .5em var(--cond);color:var(--mute);vertical-align:middle;margin-left:6px}
+.tb-right{display:flex;gap:10px}
+.only-fav,.sort{height:44px;padding:0 16px;border-radius:8px;background:var(--wh);border:1.5px solid var(--line)}
+.only-fav[aria-pressed=true]{background:var(--asph);color:var(--wh);border-color:var(--asph)}
+.list{display:grid;grid-template-columns:repeat(auto-fill,minmax(270px,1fr));gap:18px}
+.vac{display:flex;flex-direction:column;background:var(--wh);border:1.5px solid var(--line);border-radius:10px;overflow:hidden;cursor:pointer;transition:border-color .2s}
+.vac:hover{border-color:var(--sign)}
+.cover{position:relative;height:140px;display:grid;place-items:center;background:var(--asph)}
+.cover::after{content:"";position:absolute;left:0;right:0;bottom:18px;height:4px;background:repeating-linear-gradient(90deg,#ffffffaa 0 26px,transparent 26px 46px)}
+.cover:has(.hot){background:var(--sign)}
+.cover .big{width:58px;height:58px;fill:none;stroke:var(--wh);stroke-width:1.5;stroke-linecap:round;stroke-linejoin:round;margin-bottom:14px}
+.badges{position:absolute;left:12px;top:12px;display:flex;gap:6px}
+.badge{padding:3px 9px;border-radius:5px;background:#ffffff26;color:var(--wh);font-size:13px}
+.badge.hot{background:var(--sig);color:var(--ink);font-weight:600}
+.heart{position:absolute;right:10px;top:10px;width:36px;height:36px;border-radius:50%;background:var(--wh);display:grid;place-items:center}
+.heart svg{width:19px;height:19px;fill:none;stroke:var(--ink);stroke-width:2}
+.heart[aria-pressed=true] svg{fill:#D2283C;stroke:#D2283C}
+.vac-body{display:flex;flex-direction:column;gap:6px;padding:18px;flex:1}
+.salary{font:800 26px var(--cond);color:var(--sign)}
+.salary small{font:400 14px "Fira Sans",sans-serif;color:var(--mute)}
+.vac h3{font-size:20px;font-weight:600}
+.where{color:var(--mute);font-size:14px}
+.meta{display:flex;flex-wrap:wrap;gap:6px;margin-top:4px}
+.meta span{padding:2px 9px;border-radius:5px;background:var(--con);font-size:13px}
+details{margin-top:6px;font-size:14px}
+summary{cursor:pointer;color:var(--sign);font-weight:500}
+details ul{margin:8px 0 0 18px;color:var(--mute)}
+.vac-foot{display:flex;justify-content:space-between;align-items:center;margin-top:auto;padding-top:12px;border-top:1.5px solid var(--con)}
+.vac-foot time{font-size:13px;color:var(--mute)}
+.go{display:flex;align-items:center;gap:8px;font:600 16px var(--cond)}
+.go i{width:30px;height:30px;border-radius:6px;background:var(--sig);display:grid;place-items:center;transition:transform .2s}
+.go svg{width:16px;height:16px;fill:none;stroke:var(--ink);stroke-width:2.2}
+.vac:hover .go i{transform:translateX(4px)}
+.empty{grid-column:1/-1;padding:40px;text-align:center;background:var(--wh);border-radius:10px;color:var(--mute)}
+
+/* условия */
+.band{background:var(--wh);border-radius:12px;padding:40px}
+.band h2{margin-bottom:28px}
+.why{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:24px}
+.why>div{display:flex;gap:14px}
+.why .ic{width:44px;height:44px;flex:none;background:var(--sign)}
+.why b{font:600 19px var(--cond)}
+.why p{color:var(--mute);font-size:15px}
+
+/* FAQ: нажатый вопрос уезжает наверх, под ним ответ */
+.faq-head{margin-bottom:24px}
+.faq{display:grid;grid-template-columns:1fr 1fr;gap:18px}
+.faq-col{position:relative;min-height:230px}
+.ans-bg{position:absolute;inset:0;border-radius:10px;background:var(--asph);opacity:0;transition:opacity .35s}
+.q-list{position:relative;display:grid;gap:10px}
+.q{text-align:left;padding:18px 20px;border-radius:10px;background:var(--wh);border:1.5px solid var(--line);font:600 18px var(--cond);transition:transform .45s cubic-bezier(.2,.8,.2,1),opacity .25s,background .3s}
+.q:hover{border-color:var(--sign)}
+.faq-col.open .q:not(.active){opacity:0;pointer-events:none}
+.faq-col.open .q.active{transform:translateY(calc(-1*var(--y)));background:var(--sig);border-color:var(--sig)}
+.ans{position:absolute;left:0;right:0;top:72px;padding:12px 22px;color:var(--wh);font-size:17px;opacity:0;pointer-events:none;transition:opacity .3s .15s;cursor:pointer}
+.faq-col.open .ans-bg,.faq-col.open .ans{opacity:1;pointer-events:auto}
+
+/* финальный призыв */
+.final{display:flex;justify-content:space-between;align-items:center;gap:32px;flex-wrap:wrap;background:var(--sign);color:var(--wh);border-radius:14px;padding:44px 48px;outline:3px solid var(--wh);outline-offset:-12px}
+.final p{margin-top:10px;color:#E3F1EA;max-width:48ch}
+.final-act{display:flex;align-items:center;gap:24px;flex-wrap:wrap}
+.final .btn{background:var(--sig);color:var(--ink)}
+.call{font-size:14px;color:#CFE6DB;display:flex;flex-direction:column}
+.call a{font:800 22px var(--cond);color:var(--wh)}
+footer{padding:28px 0;color:var(--mute);font-size:14px}
+footer .wrap{display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap}
+
+/* окна */
+dialog{margin:auto;border:0;border-radius:12px;padding:0;width:min(540px,calc(100% - 24px));max-height:calc(100% - 24px);color:var(--ink);background:var(--wh)}
+dialog[open]{animation:pop .3s cubic-bezier(.2,.8,.2,1)}
+@keyframes pop{from{transform:translateY(16px);opacity:0}}
+dialog::backdrop{background:#2E3338cc}
+.form,.howto,.done{padding:28px}
+.form{display:grid;gap:14px}
+.d-head{display:flex;justify-content:space-between;gap:16px;margin-bottom:6px}
+.d-head h3{font-size:26px}
+.d-head p{color:var(--mute);font-size:14px}
+.x{width:38px;height:38px;flex:none;border-radius:8px;background:var(--con);font-size:22px}
+.row2{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+label{display:grid;gap:5px;font-size:14px;font-weight:500}
+input:not([type=checkbox]),select{height:48px;padding:0 14px;border:1.5px solid var(--line);border-radius:8px;background:var(--wh);font-weight:400}
+input:focus,select:focus{outline:0;border-color:var(--sign)}
+.check{display:flex;align-items:center;gap:10px}
+input[type=checkbox]{width:18px;height:18px;accent-color:var(--sign)}
+.cats{display:none;align-items:center;gap:8px;font-size:14px}
+.cats.on{display:flex}
+.cats label{display:block;position:relative}
+.cats label input{position:absolute;opacity:0}
+.cats label span{display:grid;place-items:center;width:46px;height:38px;border-radius:7px;border:1.5px solid var(--line);font:600 16px var(--cond);cursor:pointer}
+.cats input:checked+span{background:var(--sign);border-color:var(--sign);color:var(--wh)}
+.cats input:focus-visible+span{outline:3px solid var(--sig)}
+.fine{font-size:12px;color:var(--mute)}
+.done{display:none;text-align:center}
+.done.on{display:grid;gap:10px;justify-items:center}
+.ok{width:64px;height:64px;border-radius:50%;background:var(--sign);color:var(--wh);display:grid;place-items:center;font-size:30px}
+.howto{display:grid;gap:16px}
+.sheet{border:1.5px solid var(--line);border-radius:8px;overflow:hidden;font-size:14px}
+.sheet-bar{display:flex;align-items:center;gap:8px;padding:8px 12px;background:var(--con)}
+.sheet-bar i{width:14px;height:14px;border-radius:3px;background:#1E8E4E}
+.sheet-wrap{overflow-x:auto}
+table{border-collapse:collapse;width:100%}
+th,td{padding:7px 12px;border-top:1px solid var(--line);text-align:left;white-space:nowrap}
+th{background:#F6F7F5;font-weight:600}
+tr.del td{text-decoration:line-through;color:#B23A48;background:#FBEDEF}
+tr.new td{background:#E6F4EC;color:var(--sign2);font-weight:500}
+.howto ol{margin-left:20px;display:grid;gap:6px}
+.demo-bar{position:fixed;left:50%;bottom:14px;transform:translateX(-50%);z-index:30;display:flex;align-items:center;gap:12px;padding:8px 8px 8px 18px;border-radius:10px;background:var(--asph);color:var(--wh);font-size:14px;white-space:nowrap;box-shadow:0 6px 24px #2E333855}
+.demo-bar button{padding:8px 14px;border-radius:7px;background:var(--sig);color:var(--ink);font-weight:600}
+
+@media(max-width:960px){.hero-panel{grid-template-columns:1fr;padding:40px 30px}.nav nav,.tel{display:none}.nav{gap:14px}.fav-link{margin-left:auto}}
+@media(max-width:640px){.hero-panel{padding:34px 24px;outline-offset:-9px}.faq,.row2{grid-template-columns:1fr}.fav-link span{display:none}.final{padding:36px 26px}.band{padding:28px 22px}.demo-bar{left:12px;right:12px;transform:none;white-space:normal;font-size:12px;padding-left:12px}.demo-bar button{flex:none}section{padding:56px 0}}
+@media(prefers-reduced-motion:reduce){*,*::before,*::after{animation:none!important;transition:none!important}html{scroll-behavior:auto}}
+</style>
+<style>
+/* переключатель дизайна: две мини-превью, ползунок едет к выбранному */
+.ver{position:fixed;top:84px;right:16px;z-index:60;display:grid;gap:8px;padding:10px;border:0;border-radius:14px;background:#fff;color:#22272B;font:600 13px/1.2 system-ui,sans-serif;cursor:pointer;box-shadow:0 0 0 1px #22272B1f,0 10px 30px #22272B2e}
+.ver-l{display:flex;justify-content:space-between;gap:12px;padding:0 4px}
+.ver-l span{font-weight:400;color:#5E666C}
+.ver-t{position:relative;display:grid;grid-template-columns:1fr 1fr;gap:6px}
+.ver-t::before{content:"";position:absolute;top:-3px;bottom:-3px;left:-3px;width:calc(50% + 3px);border-radius:10px;box-shadow:0 0 0 2px #22272B;transition:transform .45s cubic-bezier(.3,1.4,.5,1)}
+.ver[aria-checked=true] .ver-t::before{transform:translateX(calc(100% + 0px))}
+.mini{position:relative;width:64px;height:44px;border-radius:7px;overflow:hidden;opacity:.55;transition:opacity .3s}
+.ver[aria-checked=false] .m1,.ver[aria-checked=true] .m2,.ver:hover .mini{opacity:1}
+.mini::before,.mini::after{content:"";position:absolute}
+.m1{background:#F4F1EA}
+.m1::before{left:5px;right:5px;top:5px;height:24px;border-radius:5px;background:#1f4a3c}
+.m1::after{left:10px;top:11px;width:24px;height:4px;border-radius:2px;background:#F2A93B;box-shadow:0 7px 0 #fff}
+.m2{background:#2E3338}
+.m2::before{left:5px;right:5px;top:5px;height:24px;border-radius:4px;background:#00704A;outline:1px solid #fff;outline-offset:-3px}
+.m2::after{left:0;right:0;bottom:6px;height:2px;background:repeating-linear-gradient(90deg,#fff 0 7px,transparent 7px 12px)}
+.mini b{position:absolute;right:5px;top:9px;width:12px;height:13px;border-radius:2px;background:#fff}
+.m2 b{background:#FFC928}
+.ver:focus-visible{outline:3px solid #FFC928;outline-offset:3px}
+@media(max-width:1499px){.ver{top:auto;bottom:76px}}
+@media(max-width:700px){.ver{right:12px;padding:8px}.ver-l{display:none}.mini{width:48px;height:34px}}
+@media(prefers-reduced-motion:reduce){.ver-t::before{transition:none}}
 </style>
 </head>
 <body>
@@ -659,6 +883,25 @@ document.querySelectorAll(".faq-col").forEach(col => {
 });
 addEventListener("scroll", () => $("header").classList.toggle("scrolled", scrollY > 10), {passive:true});
 saveFav(); renderTiles(); render();
+</script>
+<button class="ver" id="ver" type="button" role="switch" aria-checked="false" aria-label="Второй вариант дизайна">
+  <span class="ver-l">Дизайн сайта <span id="verText"></span></span>
+  <span class="ver-t"><span class="mini m1"><b></b></span><span class="mini m2"><b></b></span></span>
+</button>
+<script>
+// переключатель вариантов дизайна: разметка и логика общие, меняется только таблица стилей
+(() => {
+  const v1 = document.getElementById("v1"), v2 = document.getElementById("v2"), b = document.getElementById("ver");
+  const set = two => {
+    v1.media = two ? "not all" : "all"; v2.media = two ? "all" : "not all";
+    b.setAttribute("aria-checked", two);
+    document.getElementById("verText").textContent = two ? "вариант 2" : "вариант 1";
+    try { localStorage.setItem("design", two ? "2" : "1"); } catch {}
+  };
+  let two = false; try { two = localStorage.getItem("design") === "2"; } catch {}
+  set(two);
+  b.onclick = () => set(two = !two);
+})();
 </script>
 </body>
 </html>
