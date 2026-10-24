@@ -398,6 +398,7 @@ input,select{font:inherit;font-size:16px;border:1px solid var(--line);border-rad
       <label>Возраст<input name="age" type="number" inputmode="numeric" min="18" max="75" required></label>
     </div>
     <label>Телефон<input name="phone" type="tel" inputmode="tel" placeholder="+7" required autocomplete="tel"></label>
+    <input name="website" tabindex="-1" autocomplete="off" aria-hidden="true" style="position:absolute;left:-9999px;width:1px;height:1px">
     <label class="check"><input type="checkbox" id="lic" name="license"> Есть водительское удостоверение</label>
     <div class="cats" id="cats">Категории:
       <label><input type="checkbox" name="cat" value="B"><span>B</span></label>
@@ -444,6 +445,8 @@ input,select{font:inherit;font-size:16px;border:1px solid var(--line);border-rad
 <div class="demo-bar">Демо: компания и вакансии условные <button type="button" data-howto>Как менять вакансии</button></div>
 
 <script>
+// адрес веб-приложения Google Apps Script (freelance/kit/vacancies-form.gs); пусто = демо без отправки
+const FORM_ENDPOINT = "";
 // ponytail: в рабочей версии VACANCIES грузится из опубликованной Google Таблицы (CSV), здесь — встроенный пример
 // days = сколько дней назад опубликовано; pay = число для сортировки
 const VACANCIES = [
@@ -631,8 +634,16 @@ $("#form").addEventListener("submit", e => {
   e.preventDefault();
   const f = e.target;
   if (!f.checkValidity()){ f.reportValidity(); return; }
-  // ponytail: демо — заявка никуда не уходит; в рабочей версии отправка в Telegram-бота через серверный скрипт
-  f.style.display = "none"; $("#done").classList.add("on");
+  const done = () => { f.style.display = "none"; $("#done").classList.add("on"); };
+  if (!FORM_ENDPOINT) return done(); // адрес приёмника ещё не задан — показываем демо-ответ
+  const btn = f.querySelector("[type=submit]"); btn.disabled = true; btn.textContent = "Отправляем…";
+  const data = new URLSearchParams(new FormData(f));
+  data.set("cat", [...f.querySelectorAll("[name=cat]:checked")].map(c => c.value).join(", "));
+  // no-cors: Apps Script отвечает редиректом, ответ нам не нужен — важно только, что запрос ушёл
+  fetch(FORM_ENDPOINT, {method:"POST", mode:"no-cors", body:data})
+    .then(done)
+    .catch(() => alert("Не получилось отправить. Позвоните нам: +7 812 000-00-00"))
+    .finally(() => { btn.disabled = false; btn.textContent = "Отправить заявку"; });
 });
 // FAQ: в каждой колонке нажатый вопрос уезжает наверх, под ним проявляется ответ; колонки независимы
 document.querySelectorAll(".faq-col").forEach(col => {
