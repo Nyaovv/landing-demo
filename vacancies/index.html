@@ -121,7 +121,8 @@ section{padding:36px 0}
 /* vacancy grid */
 .list{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:16px}
 .vac{background:var(--card);border-radius:var(--r);overflow:hidden;display:flex;flex-direction:column;transition:transform .5s cubic-bezier(.22,.61,.36,1),box-shadow .5s cubic-bezier(.22,.61,.36,1);animation:fade .35s backwards}
-.vac:hover{transform:translateY(-3px);box-shadow:var(--sh)}
+.vac{position:relative}
+.vac:hover{transform:scale(1.035);box-shadow:0 24px 48px -20px rgba(21,35,43,.35);z-index:2}
 @keyframes fade{from{opacity:0;transform:translateY(8px)}}
 .cover{position:relative;height:124px;display:grid;place-items:center;overflow:hidden;background:linear-gradient(135deg,var(--c1),var(--c2))}
 .cover::before,.cover::after{content:"";position:absolute;pointer-events:none}
