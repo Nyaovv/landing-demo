@@ -123,15 +123,22 @@ section{padding:44px 0}
 .vac{background:var(--card);border-radius:var(--r);overflow:hidden;display:flex;flex-direction:column;transition:transform .2s,box-shadow .2s;animation:fade .35s both}
 .vac:hover{transform:translateY(-3px);box-shadow:var(--sh)}
 @keyframes fade{from{opacity:0;transform:translateY(8px)}}
-.cover{position:relative;height:118px;display:grid;place-items:center;overflow:hidden}
-.cover svg.big{width:64px;height:64px;fill:none;stroke-width:1.4;stroke-linecap:round;stroke-linejoin:round;opacity:.9;transition:transform .4s}
-.vac:hover .cover svg.big{transform:scale(1.08) rotate(-3deg)}
-.cover::after{content:"";position:absolute;inset:0;background:radial-gradient(circle at 85% 120%,rgba(255,255,255,.55),transparent 55%)}
-.cover.c-blue{background:linear-gradient(135deg,#dbe7f6,#c4d7ef)} .cover.c-blue svg.big{stroke:var(--blue)}
-.cover.c-amber{background:linear-gradient(135deg,#fcebcc,#f8dba8)} .cover.c-amber svg.big{stroke:var(--amber-ink)}
-.cover.c-green{background:linear-gradient(135deg,#d9ece3,#c2e0d2)} .cover.c-green svg.big{stroke:var(--acc)}
-.cover.c-orange{background:linear-gradient(135deg,#fde4d6,#f9cdb5)} .cover.c-orange svg.big{stroke:#b5542a}
-.cover.c-sky{background:linear-gradient(135deg,#dcf0f5,#c0e3ec)} .cover.c-sky svg.big{stroke:#1f7a94}
+.cover{position:relative;height:124px;display:grid;place-items:center;overflow:hidden;background:linear-gradient(135deg,var(--c1),var(--c2))}
+.cover::before,.cover::after{content:"";position:absolute;pointer-events:none}
+.cover::after{inset:0;background:radial-gradient(circle at 85% 120%,rgba(255,255,255,.35),transparent 55%)}
+.cover svg.big{position:relative;z-index:1;width:64px;height:64px;fill:none;stroke:var(--ci);stroke-width:1.4;stroke-linecap:round;stroke-linejoin:round;transition:transform .4s}
+.vac:hover .cover svg.big{transform:scale(1.08) rotate(-4deg)}
+.look-0::before{inset:0;background:repeating-linear-gradient(-45deg,rgba(255,255,255,.22) 0 10px,transparent 10px 22px)}
+.look-1::before{inset:0;background:radial-gradient(rgba(255,255,255,.6) 1.6px,transparent 1.8px) 0 0/16px 16px}
+.look-1 svg.big,.look-4 svg.big{width:82px;height:82px;padding:16px;background:#fff;border-radius:22px;box-shadow:0 14px 26px -14px rgba(0,0,0,.35)}
+.look-2{justify-items:start;padding-left:28px}
+.look-2::before{width:190px;height:190px;border-radius:50%;right:-50px;top:-60px;background:rgba(255,255,255,.28)}
+.look-2 svg.big{width:72px;height:72px}
+.look-3::before{inset:0;background:repeating-radial-gradient(circle at 82% 115%,rgba(255,255,255,.3) 0 2px,transparent 2px 18px)}
+.look-4::before{inset:0;background:linear-gradient(rgba(255,255,255,.3) 1px,transparent 1px) 0 0/20px 20px,linear-gradient(90deg,rgba(255,255,255,.3) 1px,transparent 1px) 0 0/20px 20px}
+.look-5{background:linear-gradient(110deg,var(--c1) 0 58%,var(--c2) 58%);justify-items:end;padding-right:34px}
+.look-5 svg.big{width:76px;height:76px}
+.dark .badge:not(.hot){background:rgba(255,255,255,.16);color:#fff}
 .badges{position:absolute;left:12px;top:12px;display:flex;gap:6px;z-index:1}
 .badge{font-size:12px;font-weight:700;padding:3px 9px;border-radius:7px;background:#fff;color:var(--ink)}
 .badge.hot{background:#e2483d;color:#fff}
@@ -528,8 +535,40 @@ const SVG = {
   sprout:'<path d="M12 20v-8"/><path d="M12 12c0-4 3-6 7-6 0 4-3 6-7 6zM12 14c0-3-2.5-5-6-5 0 3 2.5 5 6 5z"/>',
   wrench:'<path d="M14.5 5.5a4 4 0 0 0 4.9 4.9L12 17.8 9.2 20.6a2 2 0 0 1-2.8-2.8L9.2 15l7.4-7.4"/><path d="M14.5 5.5L17 3l4 4-2.5 2.5"/>',
   case:'<rect x="3" y="7" width="18" height="13" rx="2"/><path d="M9 7V5h6v2M3 13h18"/>',
+  semi:'<path d="M2 15V7h10v8M12 10h5l3 3v2"/><path d="M2 15h18"/><circle cx="6" cy="17.5" r="1.8"/><circle cx="16" cy="17.5" r="1.8"/>',
+  bus:'<rect x="4" y="3" width="16" height="14" rx="3"/><path d="M4 10h16M8 20v-3M16 20v-3"/><circle cx="8" cy="13.5" r=".9"/><circle cx="16" cy="13.5" r=".9"/>',
+  car:'<path d="M4 15l1.5-5a2 2 0 0 1 1.9-1.5h9.2a2 2 0 0 1 1.9 1.5L20 15v3H4z"/><circle cx="7.5" cy="15" r="1"/><circle cx="16.5" cy="15" r="1"/>',
+  crane:'<path d="M6 21V4h2l12 4M8 4v17M3 21h8M20 8v5"/><path d="M18 13h4v2.5h-4z"/>',
+  forklift:'<path d="M3 18V9h6l3 5v4M14 4v14h7"/><circle cx="5.5" cy="18" r="1.8"/><circle cx="10.5" cy="18" r="1.8"/>',
+  clipboard:'<rect x="5" y="4" width="14" height="17" rx="2"/><path d="M9 4V3h6v1M9 10h6M9 14h6M9 18h3"/>',
+  boxes:'<path d="M3 13h8v8H3zM13 13h8v8h-8zM8 3h8v8H8z"/>',
+  barcode:'<path d="M4 5v14M7 5v14M10.5 5v14M13 5v14M16.5 5v14M20 5v14"/>',
+  cart:'<path d="M3 4h2l2 11h11l2-8H6"/><circle cx="9" cy="19" r="1.5"/><circle cx="17" cy="19" r="1.5"/>',
+  flame:'<path d="M12 21c-4 0-6-3-6-6 0-4 4-6 4-10 3 2 5 5 5 8 1-1 1.5-2 1.5-3 1.5 2 1.5 4 1.5 5 0 3-2 6-6 6z"/>',
+  hammer:'<path d="M14 6l4 4M4 20l9-9M11 3.5l7.5 7.5-2.5 2.5L8.5 6z"/>',
+  sliders:'<path d="M4 6h10M18 6h2M4 12h4M12 12h8M4 18h12"/><circle cx="16" cy="6" r="2"/><circle cx="10" cy="12" r="2"/><circle cx="18" cy="18" r="2"/>',
+  check:'<circle cx="11" cy="11" r="7"/><path d="M20 20l-4-4M8 11l2 2 4-4"/>',
+  roller:'<rect x="4" y="3" width="14" height="6" rx="2"/><path d="M18 6h2v5h-8v3M12 14v7"/>',
+  tire:'<circle cx="12" cy="12" r="8.5"/><circle cx="12" cy="12" r="3.5"/><path d="M12 3.5v5M12 15.5v5M3.5 12h5M15.5 12h5"/>',
+  bolt:'<path d="M13 2L4 14h7l-1 8 9-12h-7z"/>',
+  drop:'<path d="M12 3s6 6.5 6 11a6 6 0 0 1-12 0c0-4.5 6-11 6-11z"/><path d="M9 14a3 3 0 0 0 3 3"/>',
+  headset:'<path d="M4 14v-2a8 8 0 0 1 16 0v2"/><rect x="3" y="14" width="4" height="6" rx="1.5"/><rect x="17" y="14" width="4" height="6" rx="1.5"/>',
+  route:'<circle cx="6" cy="18" r="2"/><circle cx="18" cy="6" r="2"/><path d="M8 18h7a3 3 0 0 0 0-6H9a3 3 0 0 1 0-6h7"/>',
+  people:'<circle cx="9" cy="8" r="3.5"/><path d="M2.5 20a6.5 6.5 0 0 1 13 0"/><circle cx="17" cy="9" r="2.5"/><path d="M16 14.5a5 5 0 0 1 5.5 5"/>',
+  pack:'<path d="M4 8l8-4 8 4v8l-8 4-8-4z"/><path d="M4 8l8 4 8-4M12 12v8M8 6l8 4"/>',
   moon:'<path d="M20 14.5A8 8 0 1 1 9.5 4a6.5 6.5 0 0 0 10.5 10.5z"/>',
 };
+// иконка под конкретную профессию; палитры [фон1, фон2, цвет иконки]
+const JOB_ICON = {"Водитель категории C":"truck","Водитель-экспедитор":"car","Водитель погрузчика":"forklift","Кладовщик":"clipboard",
+  "Комплектовщик в ночную смену":"moon","Оператор станка ЧПУ":"gear","Упаковщик":"pack","Водитель категории CE (фура)":"semi",
+  "Водитель автобуса (развозка)":"bus","Курьер на авто компании":"route","Водитель-манипуляторщик":"crane","Старший кладовщик":"boxes",
+  "Грузчик":"box","Оператор склада (сканер)":"barcode","Сборщик заказов (дневная смена)":"cart","Сварщик полуавтомата":"flame",
+  "Слесарь-сборщик":"hammer","Наладчик оборудования":"sliders","Контролёр ОТК":"check","Маляр порошковой покраски":"roller",
+  "Автослесарь грузовых машин":"wrench","Шиномонтажник":"tire","Автоэлектрик":"bolt","Мойщик техники":"drop",
+  "Диспетчер автопарка":"headset","Логист":"route","Специалист по подбору персонала":"people"};
+const PALETTES = [["#dbe7f6","#c4d7ef","#3667a6"],["#fcebcc","#f8dba8","#8a5208"],["#d9ece3","#c2e0d2","#22795f"],
+  ["#fde4d6","#f9cdb5","#b5542a"],["#e9e4fa","#d6ccf5","#6a4fb3"],["#173f35","#1f5245","#f2a93b",1],["#dcf0f5","#c0e3ec","#1f7a94"],
+  ["#fbe3e7","#f6c9d1","#c24a5a"],["#1d2b36","#2c3e4c","#8fd3c1",1]];
 const CAT = {"Водители":["truck","c-blue"],"Склад":["box","c-amber"],"Производство":["gear","c-green"],"Автосервис":["wrench","c-orange"],"Офис":["case","c-sky"]};
 // категории-плитки: фильтр-функция
 const TILES = [
@@ -569,12 +608,12 @@ function render(){
   items.sort($("#sort").value === "pay" ? (a,b)=>b.pay-a.pay : (a,b)=>a.days-b.days);
   $("#listTitle").firstChild.textContent = (onlyFav ? "Избранное" : TILES[tile][0]) + " ";
   $("#found").textContent = items.length;
-  list.innerHTML = items.length ? items.map((v,i)=>{ const [icon,cls] = CAT[v.c]; return `
+  list.innerHTML = items.length ? items.map((v,i)=>{ const n = VACANCIES.indexOf(v), [c1,c2,ci,dark] = PALETTES[(n*4)%PALETTES.length]; return `
     <article class="vac" style="animation-delay:${Math.min(i,8)*40}ms">
-      <div class="cover ${cls}">
+      <div class="cover look-${n%6}${dark?" dark":""}" style="--c1:${c1};--c2:${c2};--ci:${ci}">
         <div class="badges">${v.hot?'<span class="badge hot">Срочно</span>':""}<span class="badge">${v.c}</span></div>
         <button class="heart" type="button" aria-label="В избранное" aria-pressed="${fav.has(v.t)}" data-fav="${v.t}"><svg viewBox="0 0 24 24"><path d="M12 20s-7-4.4-7-10a4 4 0 0 1 7-2.6A4 4 0 0 1 19 10c0 5.6-7 10-7 10z"/></svg></button>
-        <svg class="big" viewBox="0 0 24 24" aria-hidden="true">${SVG[icon]}</svg>
+        <svg class="big" viewBox="0 0 24 24" aria-hidden="true">${SVG[JOB_ICON[v.t]||CAT[v.c][0]]}</svg>
       </div>
       <div class="vac-body">
         <div class="salary">${rub(v.pay)} <small>в месяц</small></div>
