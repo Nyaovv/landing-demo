@@ -152,8 +152,6 @@ section{padding:36px 0}
 .salary{font-size:22px;font-weight:800;line-height:1.2}
 .salary small{font-size:14px;font-weight:500;color:var(--muted)}
 .vac h3{font-size:17px;font-weight:600;color:var(--acc)}
-.vac h3 button{all:unset;cursor:pointer}
-.vac h3 button:hover{text-decoration:underline}
 .where{font-size:14px;color:var(--muted)}
 .meta{display:flex;flex-wrap:wrap;gap:5px;margin:4px 0 2px}
 .meta span{font-size:12.5px;font-weight:600;background:var(--bg);border-radius:7px;padding:3px 9px;color:#46535c}
@@ -165,6 +163,14 @@ section{padding:36px 0}
 .vac details ul{padding-left:18px;margin-top:6px;color:var(--muted)}
 .vac-foot{display:flex;justify-content:space-between;align-items:center;margin-top:auto;padding-top:10px}
 .vac-foot time{font-size:13px;color:#8a949b}
+.vac{cursor:pointer;outline:none}
+.vac:focus-visible{box-shadow:0 0 0 3px var(--acc)}
+.go{display:flex;align-items:center;gap:10px;font-size:14px;font-weight:600;color:var(--acc)}
+.go i{width:36px;height:36px;border-radius:50%;background:var(--tint);display:grid;place-items:center;transition:background .4s,transform .5s cubic-bezier(.22,.61,.36,1)}
+.go svg{width:18px;height:18px;fill:none;stroke:var(--acc);stroke-width:2.2;stroke-linecap:round;stroke-linejoin:round;transition:stroke .4s}
+.vac:hover .go i{background:var(--acc);transform:translateX(4px)}
+.vac:hover .go svg{stroke:#fff}
+.vac:hover h3{text-decoration:underline;text-underline-offset:3px}
 .empty{grid-column:1/-1;text-align:center;color:var(--muted);padding:40px;background:var(--card);border-radius:var(--r)}
 
 /* why + how: one compact dark band */
@@ -574,7 +580,7 @@ function render(){
   $("#listTitle").firstChild.textContent = (onlyFav ? "Избранное" : TILES[tile][0]) + " ";
   $("#found").textContent = items.length;
   list.innerHTML = items.length ? items.map((v,i)=>{ const n = VACANCIES.indexOf(v), [c1,c2,ci,dark] = PALETTES[(n*4)%PALETTES.length]; return `
-    <article class="vac" style="animation-delay:${Math.min(i,8)*40}ms">
+    <article class="vac" tabindex="0" role="button" aria-label="Откликнуться: ${v.t}" data-apply="${v.t}" style="animation-delay:${Math.min(i,8)*40}ms">
       <div class="cover look-${n%6}${dark?" dark":""}" style="--c1:${c1};--c2:${c2};--ci:${ci}">
         <div class="badges">${v.hot?'<span class="badge hot">Срочно</span>':""}<span class="badge">${v.c}</span></div>
         <button class="heart" type="button" aria-label="В избранное" aria-pressed="${fav.has(v.t)}" data-fav="${v.t}"><svg viewBox="0 0 24 24"><path d="M12 20s-7-4.4-7-10a4 4 0 0 1 7-2.6A4 4 0 0 1 19 10c0 5.6-7 10-7 10z"/></svg></button>
@@ -582,11 +588,11 @@ function render(){
       </div>
       <div class="vac-body">
         <div class="salary">${rub(v.pay)} <small>в месяц</small></div>
-        <h3><button type="button" data-apply="${v.t}">${v.t}</button></h3>
+        <h3>${v.t}</h3>
         <div class="where">м. ${v.m} · ${v.g}</div>
         <div class="meta">${v.tags.map(t=>`<span>${t}</span>`).join("")}</div>
         <details><summary>Обязанности и условия</summary><ul>${v.d.map(x=>`<li>${x}</li>`).join("")}</ul></details>
-        <div class="vac-foot"><time>${ago(v.days)}</time><button class="btn btn-acc btn-sm" data-apply="${v.t}">Откликнуться</button></div>
+        <div class="vac-foot"><time>${ago(v.days)}</time><span class="go">Откликнуться<i><svg viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></svg></i></span></div>
       </div>
     </article>`}).join("") : `<p class="empty">${onlyFav ? "В избранном пока пусто — нажмите ♡ на карточке вакансии." : "Ничего не нашлось. Оставьте общую заявку внизу страницы — подберём вариант."}</p>`;
 }
@@ -607,12 +613,14 @@ $("#job").innerHTML = `<option value="">Выберите вакансию</optio
 document.addEventListener("click", e => {
   const h = e.target.closest("[data-fav]");
   if (h){ const k = h.dataset.fav; fav.has(k) ? fav.delete(k) : fav.add(k); h.setAttribute("aria-pressed", fav.has(k)); saveFav(); if (onlyFav) render(); return; }
+  if (e.target.closest(".vac details")) return;
   const a = e.target.closest("[data-apply]");
   if (a){ e.preventDefault(); $("#form").reset(); $("#cats").classList.remove("on"); $("#form").style.display=""; $("#done").classList.remove("on");
           $("#job").value = a.dataset.apply; dlg.showModal(); }
   if (e.target.closest("[data-howto]")) $("#howto").showModal();
   const c = e.target.closest("[data-close]"); if (c) c.closest("dialog").close();
 });
+document.addEventListener("keydown", e => { if ((e.key==="Enter"||e.key===" ") && e.target.matches(".vac")) { e.preventDefault(); e.target.click(); } });
 document.querySelectorAll("dialog").forEach(d => d.addEventListener("click", e => { if (e.target === d) d.close(); }));
 $("#lic").onchange = e => $("#cats").classList.toggle("on", e.target.checked);
 $("#form").addEventListener("submit", e => {
