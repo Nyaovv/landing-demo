@@ -170,26 +170,45 @@ section{padding:44px 0}
 @media(max-width:900px){.why{grid-template-columns:1fr 1fr}}
 @media(max-width:520px){.why{grid-template-columns:1fr}}
 
-/* steps */
-.steps{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;counter-reset:s}
-.step{background:var(--card);border:1px solid var(--line);border-radius:var(--r);padding:24px}
-.step::before{counter-increment:s;content:"0" counter(s);display:block;font-size:44px;font-weight:800;line-height:1;color:var(--amber);margin-bottom:14px}
-.step b{display:block;font-size:18px;margin-bottom:4px}
-.step p{color:var(--muted);font-size:15px}
-@media(max-width:820px){.steps{grid-template-columns:1fr}}
+/* steps: one panel, connected timeline */
+.sec-head.stack{display:block}
+.sec-head.stack p{margin-top:8px}
+.timeline{background:var(--card);border-radius:28px;padding:clamp(22px,3.5vw,40px);display:grid;grid-template-columns:repeat(3,1fr);gap:28px;position:relative;box-shadow:var(--sh)}
+.tl{position:relative}
+.tl-top{display:flex;align-items:center;gap:12px;margin-bottom:16px}
+.tl-num{width:48px;height:48px;border-radius:50%;background:var(--deep);color:var(--amber);font-weight:800;font-size:18px;display:grid;place-items:center;flex:none;position:relative;z-index:1}
+.tl-line{flex:1;height:2px;background:repeating-linear-gradient(90deg,var(--line) 0 8px,transparent 8px 14px)}
+.tl:last-child .tl-line{display:none}
+.tl-time{display:inline-block;font-size:13px;font-weight:700;color:var(--amber-ink);background:var(--amber-soft);border-radius:8px;padding:3px 10px;margin-bottom:10px}
+.tl b{display:block;font-size:19px;margin-bottom:6px}
+.tl p{color:var(--muted);font-size:15px}
+@media(max-width:820px){
+  .timeline{grid-template-columns:1fr;gap:0}
+  .tl{padding-left:64px;padding-bottom:26px}
+  .tl:last-child{padding-bottom:0}
+  .tl-top{position:absolute;left:0;top:0;bottom:0;flex-direction:column;margin:0;gap:6px}
+  .tl-line{width:2px;height:auto;flex:1;background:repeating-linear-gradient(180deg,var(--line) 0 8px,transparent 8px 14px)}
+}
 
-/* faq */
-.faq-grid{display:grid;grid-template-columns:.8fr 1.2fr;gap:32px;align-items:start}
-.faq-grid .sec-head{display:block}
-.faq-grid .sec-head p{margin-top:10px}
-.faq{display:grid;gap:10px}
-.faq details{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:18px 22px}
-.faq summary{cursor:pointer;font-weight:600;list-style:none;display:flex;justify-content:space-between;gap:12px}
+/* faq + contact card */
+.faq-grid{display:grid;grid-template-columns:minmax(0,.75fr) minmax(0,1.25fr);gap:20px;align-items:start}
+.ask{position:sticky;top:88px;background:var(--deep);color:#fff;border-radius:24px;padding:28px;overflow:hidden}
+.ask h2{font-size:clamp(24px,2.6vw,30px);font-weight:800}
+.ask p{color:#c9d8d2;margin:10px 0 18px;font-size:15px}
+.ask .phone{display:block;font-size:clamp(22px,2.4vw,28px);font-weight:800;color:var(--amber);text-decoration:none;white-space:nowrap}
+.ask small{display:block;color:#a9c2b8;font-size:14px;margin:4px 0 20px}
+.ask .btn{width:100%;background:#fff;color:var(--deep)}
+.ask .btn:hover{background:var(--tint)}
+.faq{display:grid;gap:8px}
+.faq details{background:var(--card);border-radius:16px;padding:18px 22px;transition:box-shadow .2s}
+.faq details[open]{box-shadow:var(--sh)}
+.faq summary{cursor:pointer;font-weight:600;list-style:none;display:flex;justify-content:space-between;align-items:center;gap:12px}
 .faq summary::-webkit-details-marker{display:none}
-.faq summary::after{content:"+";color:var(--acc);font-size:22px;line-height:1;transition:transform .2s}
+.faq summary::after{content:"+";flex:none;width:28px;height:28px;border-radius:50%;background:var(--tint);color:var(--acc);display:grid;place-items:center;font-size:20px;line-height:1;transition:transform .2s}
 .faq details[open] summary::after{transform:rotate(45deg)}
 .faq p{color:var(--muted);margin-top:10px;font-size:16px}
-@media(max-width:820px){.faq-grid{grid-template-columns:1fr;gap:0}}
+@media(min-width:821px){.ask{margin-top:66px}}
+@media(max-width:820px){.faq-grid{grid-template-columns:1fr}.ask{position:static;order:2}}
 
 /* final cta */
 .final{background:var(--amber);color:var(--ink);border-radius:28px;padding:clamp(26px,5vw,48px);display:flex;justify-content:space-between;align-items:center;gap:24px;flex-wrap:wrap}
@@ -325,23 +344,37 @@ input,select{font:inherit;font-size:16px;border:1px solid var(--line);border-rad
 
 <section id="how">
   <div class="wrap">
-    <div class="sec-head"><h2>Как устроиться</h2><p>От заявки до первой смены обычно проходит 2–3 дня.</p></div>
-    <div class="steps">
-      <div class="step"><b>Оставьте заявку</b><p>Короткая форма на сайте, резюме не нужно.</p></div>
-      <div class="step"><b>Ответьте на звонок</b><p>Перезвоним в течение рабочего дня и назначим встречу.</p></div>
-      <div class="step"><b>Выходите на работу</b><p>Оформление в день собеседования.</p></div>
+    <div class="sec-head stack"><h2>Как устроиться</h2><p>Три шага от заявки до первой смены.</p></div>
+    <div class="timeline">
+      <div class="tl"><div class="tl-top"><span class="tl-num">1</span><span class="tl-line"></span></div>
+        <span class="tl-time">1 минута</span><b>Оставьте заявку</b><p>Выберите вакансию и заполните короткую форму. Резюме не нужно.</p></div>
+      <div class="tl"><div class="tl-top"><span class="tl-num">2</span><span class="tl-line"></span></div>
+        <span class="tl-time">В тот же день</span><b>Ответьте на звонок</b><p>Перезвоним, расскажем об условиях и пригласим на собеседование.</p></div>
+      <div class="tl"><div class="tl-top"><span class="tl-num">3</span><span class="tl-line"></span></div>
+        <span class="tl-time">Через 2–3 дня</span><b>Выходите на работу</b><p>Оформляем в день собеседования, выдаём спецодежду и знакомим с наставником.</p></div>
     </div>
   </div>
 </section>
 
 <section id="faq">
   <div class="wrap faq-grid">
-    <div class="sec-head"><h2>Частые вопросы</h2><p>Не нашли ответ — позвоните, подскажем: <a href="tel:+78120000000">+7 812 000-00-00</a></p></div>
-    <div class="faq">
-      <details><summary>Можно устроиться без опыта?</summary><p>Да, на склад и производство. Всему научим на месте. Водителям нужен стаж от одного года.</p></details>
-      <details><summary>Когда и как выплачивается зарплата?</summary><p>Дважды в месяц на банковскую карту, официально и без задержек.</p></details>
-      <details><summary>Нужно ли резюме?</summary><p>Нет. Достаточно заполнить заявку на сайте, остальное обсудим по телефону.</p></details>
-      <details><summary>Где находится работа?</summary><p>Склад и производство в Санкт-Петербурге, есть развозка от метро. Водители работают по городу и области.</p></details>
+    <aside class="ask">
+      <h2>Остались вопросы?</h2>
+      <p>Позвоните — менеджер по подбору ответит на всё за пару минут.</p>
+      <a class="phone" href="tel:+78120000000">+7 812 000-00-00</a>
+      <small>Пн–Пт 9:00–19:00, Сб 10:00–16:00</small>
+      <button class="btn" data-apply="">Оставить заявку</button>
+    </aside>
+    <div>
+      <div class="sec-head stack"><h2>Частые вопросы</h2></div>
+      <div class="faq">
+        <details open><summary>Можно устроиться без опыта?</summary><p>Да, на склад, производство и в автосервис на часть позиций. Всему научим на месте, первые две недели рядом будет наставник. Водителям нужен стаж от одного года.</p></details>
+        <details><summary>Когда и как выплачивается зарплата?</summary><p>Дважды в месяц на банковскую карту, в одни и те же числа. Официально, без задержек и конвертов.</p></details>
+        <details><summary>Нужно ли резюме?</summary><p>Нет. Достаточно заявки на сайте, остальное обсудим по телефону и на собеседовании.</p></details>
+        <details><summary>Есть ли испытательный срок?</summary><p>Да, до двух месяцев. Зарплата на испытательном сроке такая же, как после него.</p></details>
+        <details><summary>Выдаёте спецодежду?</summary><p>Да, спецодежду, обувь и средства защиты выдаём бесплатно в первый рабочий день.</p></details>
+        <details><summary>Где находится работа?</summary><p>Склады — у метро Парнас, производство — у Купчино, автопарк — у Девяткино. От всех станций ходит бесплатная развозка.</p></details>
+      </div>
     </div>
   </div>
 </section>
