@@ -213,7 +213,7 @@ section{padding:44px 0}
 .faq summary::-webkit-details-marker{display:none}
 .faq summary::after{content:"+";flex:none;width:28px;height:28px;border-radius:50%;background:var(--tint);color:var(--acc);display:grid;place-items:center;font-size:20px;line-height:1;transition:transform .2s}
 .faq details[open] summary::after{transform:rotate(45deg)}
-.faq p{color:var(--muted);margin-top:10px;font-size:16px}
+.faq p{color:var(--muted);margin-top:10px;font-size:16px;overflow:hidden}
 @media(min-width:821px){.ask{margin-top:66px}}
 @media(max-width:820px){.faq-grid{grid-template-columns:1fr}.ask{position:static;order:2}}
 
@@ -657,6 +657,17 @@ $("#form").addEventListener("submit", e => {
   // ponytail: демо — заявка никуда не уходит; в рабочей версии отправка в Telegram-бота через серверный скрипт
   f.style.display = "none"; $("#done").classList.add("on");
 });
+// FAQ: открыт только один вопрос, плавное раскрытие
+const faqAnim = (p, open) => p.animate(
+  [{height:0,opacity:0,marginTop:0},{height:p.offsetHeight+"px",opacity:1,marginTop:"10px"}],
+  {duration:open?300:220,easing:"cubic-bezier(.4,0,.2,1)",direction:open?"normal":"reverse"});
+const faqClose = d => { faqAnim(d.querySelector("p"), false); setTimeout(() => d.open = false, 210); };
+document.querySelectorAll(".faq details").forEach(d => d.querySelector("summary").addEventListener("click", e => {
+  e.preventDefault();
+  if (d.open) return faqClose(d);
+  document.querySelectorAll(".faq details[open]").forEach(faqClose);
+  d.open = true; faqAnim(d.querySelector("p"), true);
+}));
 addEventListener("scroll", () => $("header").classList.toggle("scrolled", scrollY > 10), {passive:true});
 saveFav(); renderTiles(); render();
 </script>
